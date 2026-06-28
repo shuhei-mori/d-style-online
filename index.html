@@ -125,16 +125,14 @@ a{ color:inherit; text-decoration:none; }
 @keyframes drift2{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(140px,-80px) scale(1.18);} }
 @keyframes drift3{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-150px,90px) scale(1.25);} }
 
-/* Hero abstract tech visual */
-.hero-visual{ position:absolute; z-index:1; top:50%; right:-3%; transform:translateY(-50%); width:min(52vw,680px); height:auto; pointer-events:none; opacity:.9;
-  -webkit-mask-image:radial-gradient(ellipse 76% 76% at 60% 50%,#000 52%,transparent 100%);
-  mask-image:radial-gradient(ellipse 76% 76% at 60% 50%,#000 52%,transparent 100%); }
-.hv-spin{ transform-origin:300px 300px; animation:hvspin 60s linear infinite; }
-.hv-core{ transform-origin:300px 300px; animation:hvpulse 3.6s ease-in-out infinite; }
-@keyframes hvspin{ to{ transform:rotate(360deg); } }
-@keyframes hvpulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
-.hv-flow{ stroke-dasharray:24 210; animation:hvflow 2.6s linear infinite; }
-@keyframes hvflow{ to{ stroke-dashoffset:-234; } }
+/* Hero data-stream visual (flowing English code) */
+.hero-visual{ position:absolute; z-index:1; top:0; bottom:0; right:0; width:min(56vw,780px); overflow:hidden; pointer-events:none; opacity:.85;
+  -webkit-mask-image:radial-gradient(ellipse 72% 82% at 78% 50%,#000 26%,transparent 80%);
+  mask-image:radial-gradient(ellipse 72% 82% at 78% 50%,#000 26%,transparent 80%); }
+.hv-col{ position:absolute; top:0; display:flex; flex-direction:column; align-items:center; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px; line-height:2; letter-spacing:.05em; white-space:nowrap; color:rgba(150,170,205,.28); will-change:transform; animation:hvfall linear infinite; }
+.hv-col .on{ color:#6ea8ff; }
+.hv-col .hot{ color:#bfe3ff; text-shadow:0 0 8px rgba(79,124,255,.85); }
+@keyframes hvfall{ from{ transform:translateY(-50%); } to{ transform:translateY(0); } }
 @media (max-width:1024px){ .hero-visual{ display:none; } }
 
 .hero-inner{ position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; width:100%; }
@@ -320,7 +318,7 @@ a{ color:inherit; text-decoration:none; }
   .scroll-hint{ display:none; }
 }
 @media (prefers-reduced-motion:reduce){
-  .orb,.scroll-hint .line,.hv-spin,.hv-core,.hv-flow{ animation:none; }
+  .orb,.scroll-hint .line,.hv-col{ animation:none; }
   .reveal{ transition:none; opacity:1; transform:none; }
 }
 </style>
@@ -347,50 +345,7 @@ a{ color:inherit; text-decoration:none; }
   <div class="orb a"></div>
   <div class="orb b"></div>
   <div class="orb c"></div>
-  <svg class="hero-visual" viewBox="0 0 600 600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="hvGrad" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0" stop-color="#4F7CFF"/><stop offset=".5" stop-color="#7B5CFF"/><stop offset="1" stop-color="#27D7E5"/>
-      </linearGradient>
-      <radialGradient id="hvGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0" stop-color="#7B5CFF" stop-opacity=".5"/>
-        <stop offset="50%" stop-color="#4F7CFF" stop-opacity=".18"/>
-        <stop offset="100%" stop-color="#27D7E5" stop-opacity="0"/>
-      </radialGradient>
-      <filter id="hvSoft" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="6"/></filter>
-      <filter id="hvBig" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="32"/></filter>
-    </defs>
-    <circle cx="455" cy="300" r="180" fill="url(#hvGlow)" filter="url(#hvBig)"/>
-    <g fill="none" stroke="url(#hvGrad)" stroke-width="1" opacity=".14">
-      <path d="M-20,70 C160,90 300,250 452,294"/>
-      <path d="M-20,150 C150,160 300,262 454,298"/>
-      <path d="M-20,230 C140,250 300,292 455,300"/>
-      <path d="M-20,300 C160,300 300,300 456,302"/>
-      <path d="M-20,372 C140,352 300,312 455,304"/>
-      <path d="M-20,452 C150,442 300,342 454,308"/>
-      <path d="M-20,532 C160,512 300,362 452,312"/>
-    </g>
-    <g fill="none" stroke="url(#hvGrad)" stroke-width="2" stroke-linecap="round">
-      <path class="hv-flow" style="animation-delay:0s" d="M-20,70 C160,90 300,250 452,294"/>
-      <path class="hv-flow" style="animation-delay:-.5s" d="M-20,150 C150,160 300,262 454,298"/>
-      <path class="hv-flow" style="animation-delay:-1s" d="M-20,230 C140,250 300,292 455,300"/>
-      <path class="hv-flow" style="animation-delay:-1.6s" d="M-20,300 C160,300 300,300 456,302"/>
-      <path class="hv-flow" style="animation-delay:-2.1s" d="M-20,372 C140,352 300,312 455,304"/>
-      <path class="hv-flow" style="animation-delay:-2.7s" d="M-20,452 C150,442 300,342 454,308"/>
-      <path class="hv-flow" style="animation-delay:-3.3s" d="M-20,532 C160,512 300,362 452,312"/>
-    </g>
-    <g fill="#fff" opacity=".5">
-      <circle cx="120" cy="120" r="1.5"/>
-      <circle cx="300" cy="288" r="2"/>
-      <circle cx="320" cy="332" r="1.5"/>
-      <circle cx="540" cy="180" r="1.5"/>
-      <circle cx="560" cy="420" r="1.5"/>
-      <circle cx="110" cy="500" r="1.5"/>
-    </g>
-    <g filter="url(#hvSoft)"><circle cx="455" cy="300" r="26" fill="url(#hvGrad)" opacity=".9"/></g>
-    <circle cx="455" cy="300" r="42" fill="none" stroke="#fff" stroke-width="1" opacity=".22"/>
-    <g class="hv-core"><circle cx="455" cy="300" r="13" fill="#fff"/></g>
-  </svg>
+  <div class="hero-visual" id="heroStream" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow">Software · Data · Education</div>
     <h1>Realizing an<span class="l2 grad-text">unreachable future</span></h1>
@@ -673,6 +628,24 @@ a{ color:inherit; text-decoration:none; }
 </footer>
 
 <script>
+  // Hero data stream (flowing English code)
+  (function(){
+    var host=document.getElementById('heroStream'); if(!host) return;
+    var toks=['DATA','FLOW','0101','AI','API','SaaS','AUTO','SYNC','NODE','ML','EDGE','GPU','async','query','model','train','deploy','scale','stream','batch','map()','fn()','{ }','=>','REST','JSON','01','10','run','x402'];
+    var W=host.clientWidth||640, n=Math.max(8,Math.min(18,Math.floor(W/56)));
+    for(var i=0;i<n;i++){
+      var col=document.createElement('div'); col.className='hv-col';
+      col.style.left=(i*(100/n))+'%';
+      var dur=7+Math.random()*9; col.style.animationDuration=dur.toFixed(2)+'s';
+      col.style.animationDelay=(-Math.random()*dur).toFixed(2)+'s';
+      col.style.opacity=(0.45+Math.random()*0.55).toFixed(2);
+      var rows=14+Math.floor(Math.random()*8), h='';
+      for(var j=0;j<rows;j++){ var r=Math.random(), c=r>0.92?' class="hot"':(r>0.72?' class="on"':''); h+='<span'+c+'>'+toks[Math.floor(Math.random()*toks.length)]+'</span>'; }
+      col.innerHTML=h+h;
+      host.appendChild(col);
+    }
+  })();
+
   // Header scroll state
   const header = document.getElementById('header');
   const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30);
