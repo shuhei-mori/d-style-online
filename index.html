@@ -133,6 +133,11 @@ a{ color:inherit; text-decoration:none; }
 .hv-col .on{ color:#6ea8ff; }
 .hv-col .hot{ color:#bfe3ff; text-shadow:0 0 8px rgba(79,124,255,.85); }
 @keyframes hvfall{ from{ transform:translateY(-50%); } to{ transform:translateY(0); } }
+.hero-laser{ position:absolute; left:0; z-index:1; height:2px; width:480px; pointer-events:none; border-radius:2px; opacity:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(79,124,255,0) 12%,rgba(39,215,229,.85) 72%,#eaf6ff 100%);
+  box-shadow:0 0 12px rgba(39,215,229,.8),0 0 30px rgba(79,124,255,.45);
+  animation-name:hvlaser; animation-timing-function:cubic-bezier(.45,0,.2,1); animation-iteration-count:infinite; }
+@keyframes hvlaser{ 0%{ transform:translateX(-460px); opacity:0; } 3%{ opacity:1; } 15%{ opacity:1; } 19%{ transform:translateX(100vw); opacity:0; } 100%{ transform:translateX(100vw); opacity:0; } }
 @media (max-width:1024px){ .hero-visual{ display:none; } }
 
 .hero-inner{ position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; width:100%; }
@@ -294,6 +299,7 @@ a{ color:inherit; text-decoration:none; }
   .footer-top{ grid-template-columns:1fr 1fr; }
 }
 @media (max-width:768px){
+  .hero-laser{ display:none; }
   .section{ padding:88px 22px; }
   .hero{ padding:130px 22px 90px; padding-top:calc(env(safe-area-inset-top,0px) + 130px); }
   .nav{
@@ -318,7 +324,7 @@ a{ color:inherit; text-decoration:none; }
   .scroll-hint{ display:none; }
 }
 @media (prefers-reduced-motion:reduce){
-  .orb,.scroll-hint .line,.hv-col{ animation:none; }
+  .orb,.scroll-hint .line,.hv-col,.hero-laser{ animation:none; }
   .reveal{ transition:none; opacity:1; transform:none; }
 }
 </style>
@@ -346,6 +352,9 @@ a{ color:inherit; text-decoration:none; }
   <div class="orb b"></div>
   <div class="orb c"></div>
   <div class="hero-visual" id="heroStream" aria-hidden="true"></div>
+  <span class="hero-laser" style="animation-duration:7s;animation-delay:-1s"></span>
+  <span class="hero-laser" style="animation-duration:9.5s;animation-delay:-4.5s"></span>
+  <span class="hero-laser" style="animation-duration:11.5s;animation-delay:-8s"></span>
   <div class="hero-inner">
     <div class="hero-eyebrow">Software · Data · Education</div>
     <h1>Realizing an<span class="l2 grad-text">unreachable future</span></h1>
@@ -628,6 +637,12 @@ a{ color:inherit; text-decoration:none; }
 </footer>
 
 <script>
+  // Hero lasers: randomize vertical position each pass
+  document.querySelectorAll('.hero-laser').forEach(function(el){
+    var place=function(){ el.style.top=(12+Math.random()*70).toFixed(1)+'%'; };
+    place(); el.addEventListener('animationiteration', place);
+  });
+
   // Hero data stream (flowing English code)
   (function(){
     var host=document.getElementById('heroStream'); if(!host) return;
